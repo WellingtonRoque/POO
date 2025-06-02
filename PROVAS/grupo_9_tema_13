@@ -1,0 +1,54 @@
+# Sistema de Votação Online Simples
+#Permite cadastrar candidatos, registrar votos de usuários (com verificação de duplicidade) e exibir os resultados no final
+
+#Grupo 9 Tema 13
+#Apolo Leonardi Bastos
+#Reinaldo Gomes de Souza
+
+candidatos = {"Apolo": 0, "Reinaldo": 0}
+ja_votou = set()
+
+def votar():
+    nome = input("Digite seu nome para votar: ")
+
+    if nome in ja_votou:
+        print("Você já votou! Voto duplicado não permitido.\n")
+        return
+
+    print("Candidatos disponíveis:")
+    for candidato in candidatos:
+        print(f"- {candidato}")
+
+    voto = input("Digite o nome do candidato em quem deseja votar: ")
+
+    if voto in candidatos:
+        candidatos[voto] += 1
+        ja_votou.add(nome)
+        print(f"Voto registrado com sucesso para {voto}.")
+    else:
+        print("Candidato inválido. Voto não registrado.")
+
+def exibir_resultados():
+    print("Resultados da Votação")
+    for candidato, votos in candidatos.items():
+        print(f"{candidato}: {votos} voto(s)")
+    
+
+def menu():
+    while True:
+        print("1. Votar")
+        print("2. Exibir Resultados")
+        print("3. Sair")
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            votar()
+        elif opcao == "2":
+            exibir_resultados()
+        elif opcao == "3":
+            print("Encerrando o sistema de votação.")
+            break
+        else:
+            print("Opção inválida. Tente novamente.")
+
+menu()
